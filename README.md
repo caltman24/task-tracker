@@ -1,4 +1,4 @@
-# vue-test
+# task-tracker
 
 ## Project setup
 ```
