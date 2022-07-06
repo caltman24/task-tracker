@@ -1,0 +1,73 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-image: radial-gradient(
+    circle farthest-corner at 12.3% 19.3%,
+    rgba(85, 88, 218, 1) 0%,
+    rgba(95, 209, 249, 1) 100.2%
+  );
+  background-size: cover;
+  min-height: 100vh;
+  padding-top: 4em;
+}
+
+.container {
+  width: 35em;
+  max-width: 95%;
+  margin-inline: auto;
+  overflow: auto;
+  min-height: 300px;
+  box-shadow: 5px 5px 25px -8px rgba(0, 0, 0, 0.7);
+  background-color: rgba(255, 255, 255, 0.236);
+  padding: 30px;
+  border-radius: 10px;
+}
+
+.btn {
+  display: inline-block;
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: inherit;
+  transition: transform 300ms ease;
+}
+
+.btn:hover {
+  transform: scale(1.01) translateY(-0.75px);
+  transition: transform 200ms ease;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+}
+
+.v-enter-active {
+  transition: opacity 0.35s ease-in;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}

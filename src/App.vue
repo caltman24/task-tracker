@@ -1,7 +1,12 @@
 <!-- Template is the output whcih is HTML -->
 <template>
   <div class="container">
-    <HeaderItem title="Task Tracker" />
+    <HeaderItem title="Task Tracker" @toggle-add-task="toggleAddTask" />
+    <Transition>
+      <div v-show="showAddTask">
+        <AddTask @add-task="addTask" />
+      </div>
+    </Transition>
     <AllTasks
       @toggle-reminder="toggleReminder"
       @delete-task="deleteTask"
@@ -14,20 +19,29 @@
 
 <script>
 import HeaderItem from "./components/HeaderItem";
-import AllTasks from "./components/AllTasks.vue";
+import AllTasks from "./components/AllTasks";
+import AddTask from "./components/AddTask";
 
 export default {
   name: "App",
   components: {
     HeaderItem,
     AllTasks,
+    AddTask,
   },
   data() {
     return {
       tasks: [],
+      showAddTask: false,
     };
   },
   methods: {
+    toggleAddTask() {
+      this.showAddTask = !this.showAddTask;
+    },
+    addTask(newTask) {
+      this.tasks = [...this.tasks, newTask];
+    },
     deleteTask(id) {
       const confirmed = confirm("Are you sure you want to delete this task?");
       if (confirmed) this.tasks = this.tasks.filter((task) => task.id !== id);
@@ -64,36 +78,5 @@ export default {
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: "Poppins", sans-serif;
-  background-image: radial-gradient( circle farthest-corner at 12.3% 19.3%,  rgba(85,88,218,1) 0%, rgba(95,209,249,1) 100.2% );
-  background-size: cover;
-  min-height: 100vh;
-  padding-top: 4em;
-}
-
-.container {
-  width: 35em;
-  max-width: 95%;
-  margin-inline: auto;
-  overflow: auto;
-  min-height: 300px;
-  box-shadow: 5px 5px 25px -8px rgba(0, 0, 0, .7);
-  background-color: rgba(255, 255, 255, 0.236);
-  padding: 30px;
-  border-radius: 10px;
-}
-
-.btn-block {
-  display: block;
-  width: 100%;
-}
+@import "../src/assets/main.css";
 </style>
