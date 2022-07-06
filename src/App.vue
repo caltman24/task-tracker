@@ -10,6 +10,8 @@
   </div>
 </template>
 
+<!-- TODO: Create AddTask component -->
+
 <script>
 import HeaderItem from "./components/HeaderItem";
 import AllTasks from "./components/AllTasks.vue";
