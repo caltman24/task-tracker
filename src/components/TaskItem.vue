@@ -1,21 +1,42 @@
 <template>
-  <div
-    @dblclick="$emit('toggle-reminder', task.id)"
-    :class="[task.reminder ? 'reminder' : '', 'task']"
-  >
-    <h3>
-      {{ task.text }}
-      <i class="fas fa-times" @click="$emit('delete-task', task.id)"></i>
-    </h3>
-    <p>{{ task.day }}</p>
+  <div>
+    <div
+      @click="onClick(task)"
+      :class="[task.reminder ? 'reminder' : '', 'task']"
+    >
+      <h3>
+        {{ task.text }}
+        <i class="fas fa-times" @click="$emit('delete-task', task.id)"></i>
+      </h3>
+      <p>{{ task.day }}</p>
+    </div>
+    <EditTask
+      v-show="toggleEditTask"
+      @edit-task="$emit('edit-task', editedTask, task.id)"
+    />
   </div>
 </template>
-
+<!-- TODO: Close edit menu from one component if another component is clicked -->
 <script>
+import EditTask from "./EditTask";
 export default {
   name: "TaskItem",
   props: {
     task: Object,
+  },
+  components: {
+    EditTask,
+  },
+  emits: ["edit-task"],
+  methods: {
+    onClick() {
+      this.toggleEditTask = !this.toggleEditTask;
+    },
+  },
+  data() {
+    return {
+      toggleEditTask: false,
+    };
   },
 };
 </script>
