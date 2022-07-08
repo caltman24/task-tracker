@@ -1,19 +1,19 @@
 <template>
-  <form action="" class="add-form">
+  <form @submit.prevent="emitFormValues" action="" class="add-form">
     <div class="form-control">
       <label for="">Task</label>
-      <input type="text" name="text" v-model="this.$parent.task.text" />
+      <input type="text" name="text" :value="task.text" />
     </div>
     <div class="form-control">
       <label for="">Day & Time</label>
-      <input type="text" name="day" v-model="this.$parent.task.day" />
+      <input type="text" name="day" :value="task.day" />
     </div>
     <div class="form-control form-control-check">
       <label for="">Set Reminder</label>
-      <input type="checkbox" name="reminder" v-model="this.$parent.task.reminder" />
+      <input type="checkbox" name="reminder" :checked="task.reminder" />
     </div>
 
-    <!-- <input type="submit" value="Save Task" class="btn btn-block" /> -->
+    <input type="submit" value="Save Task" class="btn btn-block" />
   </form>
 </template>
 
@@ -23,12 +23,36 @@ export default {
   props: {
     task: Object,
   },
-  data() {
-    return {
-      text: this.$parent.task.text,
-      day: this.$parent.task.day,
-      reminder: this.$parent.task.reminder,
-    };
+  methods: {
+    emitFormValues(e) {
+      const { text, day, reminder } = e.target.elements;
+
+      const editedTaskData = {
+        text: text.value,
+        day: day.value,
+        reminder: reminder.checked,
+      };
+
+      // Check if no edits where made
+      const isSameData = () => {
+        const { task } = this.$props;
+        const currentTaskData = {
+          text: task.text,
+          day: task.day,
+          reminder: task.reminder,
+        };
+
+        // for every key in editedTaskData Object, check if that key/property's value is the same as the current value
+        return Object.keys(editedTaskData).every(
+          (key) => currentTaskData[key] === editedTaskData[key]
+        );
+      };
+
+      // return if data is same (no edit was made)
+      if (isSameData()) return;
+
+      this.$emit("edit-task", editedTaskData);
+    },
   },
 };
 </script>

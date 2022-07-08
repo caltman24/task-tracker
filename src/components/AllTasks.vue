@@ -2,6 +2,7 @@
   <div :key="task.id" v-for="task in tasks">
     <TaskItem
       @delete-task="$emit('delete-task', task.id)"
+      @edit-task="emitEditedTask"
       :task="task"
     />
   </div>
@@ -18,6 +19,11 @@ export default {
   components: {
     TaskItem,
   },
+  methods: {
+    emitEditedTask(editedTask) {
+      this.$emit("edit-task", editedTask);
+    },
+  },
   data() {
     return {
       editTaskInfo: {
@@ -26,6 +32,6 @@ export default {
       },
     };
   },
-  emits: ["delete-task"],
+  emits: ["delete-task", "edit-task"],
 };
 </script>

@@ -11,11 +11,9 @@
         <AddTask @add-task="addTask" />
       </div>
     </Transition>
-    <AllTasks @delete-task="deleteTask" :tasks="tasks" />
+    <AllTasks @delete-task="deleteTask" :tasks="tasks" @edit-task="editTask" />
   </div>
 </template>
-
-<!-- TODO: Create AddTask component -->
 
 <script>
 import HeaderItem from "./components/HeaderItem";
@@ -39,8 +37,8 @@ export default {
     toggleAddTask() {
       this.showAddTask = !this.showAddTask;
     },
-    async editTask(editedTask, id) {
-      console.log(editedTask);
+    async editTask(editedTask) {
+      const { id } = editedTask;
       const res = await fetch(`api/tasks/${id}`, {
         method: "PUT",
         headers: {
@@ -50,7 +48,10 @@ export default {
       });
 
       const data = await res.json();
-      this.tasks = [...this.tasks, data];
+      this.tasks = this.tasks.map((task) => {
+        if (task.id === id) return data;
+        return task;
+      });
     },
     async addTask(newTask) {
       const res = await fetch("api/tasks", {

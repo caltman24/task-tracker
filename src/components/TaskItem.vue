@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      @click="onClick(task)"
+      @click="toggleEditMenu"
       :class="[task.reminder ? 'reminder' : '', 'task']"
     >
       <h3>
@@ -10,13 +10,10 @@
       </h3>
       <p>{{ task.day }}</p>
     </div>
-    <EditTask
-      v-show="toggleEditTask"
-      @edit-task="$emit('edit-task', editedTask, task.id)"
-    />
+    <EditTask v-show="toggleEditTask" @edit-task="catchTask" :task="task" />
   </div>
 </template>
-<!-- TODO: Close edit menu from one component if another component is clicked -->
+
 <script>
 import EditTask from "./EditTask";
 export default {
@@ -29,8 +26,13 @@ export default {
   },
   emits: ["edit-task"],
   methods: {
-    onClick() {
+    toggleEditMenu() {
       this.toggleEditTask = !this.toggleEditTask;
+    },
+    catchTask(editedTaskData) {
+      const { id } = this.$props.task;
+      const editedTask = { ...editedTaskData, id };
+      this.$emit("edit-task", editedTask);
     },
   },
   data() {
