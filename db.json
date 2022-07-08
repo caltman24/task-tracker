@@ -7,10 +7,10 @@
       "id": 2
     },
     {
-      "id": 3,
       "text": "Beat up little kids",
       "day": "EVERYDAY at 12:00am",
-      "reminder": false
+      "reminder": false,
+      "id": 3
     },
     {
       "text": "Grab lunch with the pope",
