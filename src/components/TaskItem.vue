@@ -10,6 +10,7 @@
       </h3>
       <p>{{ task.day }}</p>
     </div>
+    <!-- TODO: only show one edit menu at a time. if another task is clicked and another task's edit menu is open. close it and open the new edit menu -->
     <EditTask v-show="toggleEditTask" @edit-task="catchTask" :task="task" />
   </div>
 </template>
