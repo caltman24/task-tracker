@@ -17,6 +17,7 @@ footer {
   margin-top: 3em;
   margin-inline: auto;
   box-shadow: 5px 5px 25px -8px rgba(0, 0, 0, 0.7);
+  width: 35em;
   max-width: 95%;
   border-radius: 10px;
 }

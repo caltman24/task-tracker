@@ -17,6 +17,12 @@
       "day": "Sunday at 10:00am",
       "reminder": true,
       "id": 4
+    },
+    {
+      "text": "Quit my job",
+      "day": "Today",
+      "reminder": true,
+      "id": 5
     }
   ]
 }
