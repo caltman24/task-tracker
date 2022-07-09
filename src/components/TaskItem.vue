@@ -10,8 +10,12 @@
       </h3>
       <p>{{ task.day }}</p>
     </div>
-    <!-- TODO: only show one edit menu at a time. if another task is clicked and another task's edit menu is open. close it and open the new edit menu -->
-    <EditTask v-show="toggleEditTask" @edit-task="catchTask" :task="task" />
+    <Transition
+      ><EditTask
+        v-show="editTaskInfo.open && editTaskInfo.id === task.id"
+        @edit-task="catchTask"
+        :task="task"
+    /></Transition>
   </div>
 </template>
 
@@ -21,25 +25,22 @@ export default {
   name: "TaskItem",
   props: {
     task: Object,
+    editTaskInfo: Object,
   },
   components: {
     EditTask,
   },
-  emits: ["edit-task"],
+  emits: ["edit-task", "toggle-edit-menu"],
   methods: {
     toggleEditMenu() {
-      this.toggleEditTask = !this.toggleEditTask;
+      const { id } = this.$props.task;
+      this.$emit("toggle-edit-menu", id);
     },
     catchTask(editedTaskData) {
       const { id } = this.$props.task;
       const editedTask = { ...editedTaskData, id };
       this.$emit("edit-task", editedTask);
     },
-  },
-  data() {
-    return {
-      toggleEditTask: false,
-    };
   },
 };
 </script>
